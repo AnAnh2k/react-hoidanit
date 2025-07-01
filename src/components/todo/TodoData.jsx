@@ -13,6 +13,7 @@ export default function TodoData(props) {
       <div>My name is {name}</div>
       <div>My name is {age}</div>
       <div>My name is {data.address}</div>
+      <button>Click me!</button>
       <div>Learning react</div>
       <div>watching youtuby</div>
     </div>

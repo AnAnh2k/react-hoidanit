@@ -1,10 +1,11 @@
 import React from "react";
 
-export default function TodoNew() {
+export default function TodoNew(props) {
+  const { addNewTodo } = props;
   return (
     <div className="todo-new">
       <input type="text" />
-      <button>Add</button>
+      <button onClick={addNewTodo}>Add</button>
     </div>
   );
 }
