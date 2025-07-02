@@ -6,8 +6,8 @@ import React, { useState } from "react";
 
 function App() {
   const [todoList, setTodoList] = useState([
-    { id: 1, name: "Learning react" },
-    { id: 2, name: "watching youtuby" },
+    // { id: 1, name: "Learning react" },
+    // { id: 2, name: "watching youtuby" },
   ]);
 
   const addNewTodo = (name) => {
@@ -24,10 +24,13 @@ function App() {
       <div className="todo-container">
         <h1 className="todo-title">TODO LIST</h1>
         <TodoNew addNewTodo={addNewTodo}></TodoNew>
-        <TodoData todoList={todoList}></TodoData>
-        <div className="todo-image">
-          <img src={img} alt="" className="logo" />
-        </div>
+        {todoList.length > 0 ? (
+          <TodoData todoList={todoList}></TodoData>
+        ) : (
+          <div className="todo-image">
+            <img src={img} alt="" className="logo" />
+          </div>
+        )}
       </div>
     </>
   );
