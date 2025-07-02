@@ -6,7 +6,7 @@ export default function TodoData(props) {
   // const name = props.name
   // const age = props.age
   // const data = props.data
-  // console.log(props);
+  console.log(props);
 
   return (
     <div className="todo-data">
@@ -16,6 +16,7 @@ export default function TodoData(props) {
       <button>Click me!</button>
       <div>Learning react</div>
       <div>watching youtuby</div>
+      <div>{JSON.stringify(props.todoList[0].name)}</div>
     </div>
   );
 }

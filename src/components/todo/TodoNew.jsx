@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function TodoNew(props) {
+  // useTtate hook (getter/setter)
   const { addNewTodo } = props;
+  const [valueInput, SetValueInput] = useState("");
   const handleClick = () => {
-    alert("click me");
+    console.log(valueInput);
   };
 
   const handleOnChange = (name) => {
-    console.log("handleOnChange", name);
+    SetValueInput(name);
   };
   return (
     <div className="todo-new">
@@ -20,6 +22,7 @@ export default function TodoNew(props) {
       <button style={{ cursor: "pointer" }} onClick={handleClick}>
         Add
       </button>
+      <div>My text input is = {valueInput}</div>
     </div>
   );
 }
