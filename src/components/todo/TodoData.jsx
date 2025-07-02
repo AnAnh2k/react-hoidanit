@@ -16,7 +16,7 @@ export default function TodoData(props) {
       <button>Click me!</button>
       <div>Learning react</div>
       <div>watching youtuby</div>
-      <div>{JSON.stringify(props.todoList[0].name)}</div>
+      <div>{JSON.stringify(props.todoList)}</div>
     </div>
   );
 }

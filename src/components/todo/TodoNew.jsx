@@ -5,7 +5,7 @@ export default function TodoNew(props) {
   const { addNewTodo } = props;
   const [valueInput, SetValueInput] = useState("");
   const handleClick = () => {
-    console.log(valueInput);
+    addNewTodo(valueInput);
   };
 
   const handleOnChange = (name) => {
