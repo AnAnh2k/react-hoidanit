@@ -9,12 +9,6 @@ function App() {
     { id: 1, name: "Learning react" },
     { id: 2, name: "watching youtuby" },
   ]);
-  const hoidanit = "Eric";
-  const age = 25;
-  const data = {
-    address: "Ha Noi",
-    country: "Viet Nam",
-  };
 
   const addNewTodo = (name) => {
     const newTodo = { id: randomIntFromInterval(1, 100000000), name: name };
@@ -30,12 +24,7 @@ function App() {
       <div className="todo-container">
         <h1 className="todo-title">TODO LIST</h1>
         <TodoNew addNewTodo={addNewTodo}></TodoNew>
-        <TodoData
-          name={hoidanit}
-          age={age}
-          data={data}
-          todoList={todoList}
-        ></TodoData>
+        <TodoData todoList={todoList}></TodoData>
         <div className="todo-image">
           <img src={img} alt="" className="logo" />
         </div>
