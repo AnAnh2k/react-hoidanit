@@ -2,20 +2,25 @@ import React from "react";
 
 export default function TodoData(props) {
   //props là biến object
-  const { name, age, data } = props;
+  const { todoList } = props;
   // const name = props.name
   // const age = props.age
   // const data = props.data
-  console.log(props);
 
   return (
     <div className="todo-data">
-      <div>My name is {name}</div>
-      <div>My name is {age}</div>
-      <div>My name is {data.address}</div>
-      <button>Click me!</button>
-      <div>Learning react</div>
-      <div>watching youtuby</div>
+      {todoList.map((item, index) => {
+        console.log(item, index);
+
+        return (
+          <div className="todo-item">
+            <div>{item.name}</div>
+
+            <button>Delete</button>
+          </div>
+        );
+      })}
+
       <div>{JSON.stringify(props.todoList)}</div>
     </div>
   );

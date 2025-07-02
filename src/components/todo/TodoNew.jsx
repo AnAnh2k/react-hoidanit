@@ -3,9 +3,10 @@ import React, { useState } from "react";
 export default function TodoNew(props) {
   // useTtate hook (getter/setter)
   const { addNewTodo } = props;
-  const [valueInput, SetValueInput] = useState("");
+  const [valueInput, SetValueInput] = useState("DucAnh");
   const handleClick = () => {
     addNewTodo(valueInput);
+    SetValueInput("");
   };
 
   const handleOnChange = (name) => {
@@ -14,6 +15,7 @@ export default function TodoNew(props) {
   return (
     <div className="todo-new">
       <input
+        value={valueInput}
         type="text"
         onChange={(event) => {
           handleOnChange(event.target.value);
