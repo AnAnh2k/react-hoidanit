@@ -2,7 +2,10 @@ import React from "react";
 
 export default function TodoData(props) {
   //props là biến object
-  const { todoList } = props;
+  const { todoList, removeTodo } = props;
+  const handleClick = (id) => {
+    removeTodo(id);
+  };
 
   return (
     <div className="todo-data">
@@ -10,8 +13,14 @@ export default function TodoData(props) {
         return (
           <div key={item.id} className="todo-item">
             <div>{item.name}</div>
-
-            <button>Delete</button>
+            <button
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                handleClick(item.id);
+              }}
+            >
+              Delete
+            </button>
           </div>
         );
       })}
