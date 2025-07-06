@@ -5,6 +5,7 @@ import img from "./assets/react.svg";
 import React, { useState } from "react";
 import Header from "./components/layout/header";
 import Footer from "./components/layout/footer";
+import { Outlet } from "react-router-dom";
 
 function App() {
   const [todoList, setTodoList] = useState([
@@ -29,6 +30,8 @@ function App() {
   return (
     <>
       <Header></Header>
+      <Outlet />
+
       <div className="todo-container">
         <h1 className="todo-title">TODO LIST</h1>
         <TodoNew addNewTodo={addNewTodo}></TodoNew>
