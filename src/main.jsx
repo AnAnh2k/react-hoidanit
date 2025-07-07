@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import TodoApp from "./components/todo/TodoApp.jsx";
 
 import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <App></App>,
     children: [
+      {
+        index: true,
+        element: <TodoApp />,
+      },
       {
         path: "/login",
         element: <LoginPage />,
