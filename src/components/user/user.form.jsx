@@ -1,24 +1,25 @@
-import { Button, Input } from "antd";
+import { Button, Input, notification } from "antd";
 import { useState } from "react";
-import axios from "axios";
+import { createUserAPI } from "../../services/api.service";
 
 const UserForm = () => {
   const [fullName, setFullName] = useState("hoidanit");
   const [email, setEmail] = useState("hoidanit");
   const [password, setPassword] = useState("hoidanit");
   const [phone, setPhone] = useState("hoidanit");
-  console.log("check form: ", fullName, email, password, phone);
+  const [api, contextHolder] = notification.useNotification();
 
-  const handleClickBtn = () => {
-    const URL_BACKEND = "http://localhost:8080/api/v1/user";
-    const data = {
-      fullName: fullName,
-      email: email,
-      password: password,
-      phone: phone,
-    };
-    axios.post(URL_BACKEND, data);
-    console.log("check state: ", { fullName, email, password, phone });
+  const handleClickBtn = async () => {
+    const res = await createUserAPI(fullName, email, password, phone);
+    if (res && res.data) {
+      api.success({
+        message: "create user",
+        description: "Tạo mới user thành công",
+      });
+    }
+    console.log("check res: ", res);
+
+    console.log(res, res.data);
   };
 
   return (
@@ -61,6 +62,7 @@ const UserForm = () => {
           />
         </div>
         <div>
+          {contextHolder}
           <Button
             type="primary"
             onClick={() => {
