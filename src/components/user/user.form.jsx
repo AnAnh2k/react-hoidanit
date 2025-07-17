@@ -13,13 +13,15 @@ const UserForm = () => {
     const res = await createUserAPI(fullName, email, password, phone);
     if (res && res.data) {
       api.success({
-        message: "create user",
+        message: "Create user",
         description: "Tạo mới user thành công",
       });
+    } else {
+      api.error({
+        message: "Error create user",
+        description: JSON.stringify(res.message),
+      });
     }
-    console.log("check res: ", res);
-
-    console.log(res, res.data);
   };
 
   return (
