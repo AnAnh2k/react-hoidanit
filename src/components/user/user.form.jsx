@@ -2,11 +2,12 @@ import { Button, Input, notification, Modal } from "antd";
 import { useState } from "react";
 import { createUserAPI } from "../../services/api.service";
 
-const UserForm = () => {
-  const [fullName, setFullName] = useState("hoidanit");
-  const [email, setEmail] = useState("hoidanit");
-  const [password, setPassword] = useState("hoidanit");
-  const [phone, setPhone] = useState("hoidanit");
+const UserForm = (props) => {
+  const { loadUser } = props;
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
   const [api, contextHolder] = notification.useNotification();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,12 +19,21 @@ const UserForm = () => {
         message: "Create user",
         description: "Tạo mới user thành công",
       });
+      resetAndCloseModal();
+      await loadUser();
     } else {
       api.error({
         message: "Error create user",
         description: JSON.stringify(res.message),
       });
     }
+  };
+
+  const resetAndCloseModal = () => {
+    setFullName("");
+    setEmail("");
+    setPassword("");
+    setPhone("");
     setIsModalOpen(false);
   };
 
