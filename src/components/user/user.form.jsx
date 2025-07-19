@@ -65,6 +65,7 @@ const UserForm = (props) => {
           <div>
             <span>FullName</span>
             <Input
+              value={fullName}
               onChange={(event) => {
                 setFullName(event.target.value);
               }}
@@ -73,6 +74,7 @@ const UserForm = (props) => {
           <div>
             <span>Email</span>
             <Input
+              value={email}
               onChange={(event) => {
                 setEmail(event.target.value);
               }}
@@ -81,7 +83,7 @@ const UserForm = (props) => {
           <div>
             <span>Password</span>
             <Input.Password
-              val
+              value={password}
               onChange={(event) => {
                 setPassword(event.target.value);
               }}
@@ -90,6 +92,7 @@ const UserForm = (props) => {
           <div>
             <span>Phone</span>
             <Input
+              value={phone}
               onChange={(event) => {
                 setPhone(event.target.value);
               }}
