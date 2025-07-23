@@ -26,6 +26,25 @@ export default function ViewUserModal(props) {
   const [id, setID] = useState("");
   const [phone, setPhone] = useState("");
 
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+
+  const handleOnchangeFile = (event) => {
+    if (!event.target.files || event.target.files.length === 0) {
+      setSelectedFile(null);
+      setPreview(null);
+      return;
+    }
+
+    // I've kept this example simple by using the first image instead of multiple
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      setPreview(URL.createObjectURL(file));
+    }
+    console.log("Selected file:", preview);
+  };
+
   return (
     <>
       <Drawer
@@ -45,18 +64,28 @@ export default function ViewUserModal(props) {
           </div>
           <div>
             <span>Avatar</span>
-            <br />
-            <img
-              height={100}
-              width={100}
-              objectFit="cover"
-              style={{ borderRadius: "50%", border: "1px solid #ccc" }}
-              src={`${
-                import.meta.env.VITE_BACKEND_URL
-              }/images/avatar/${avatar}`}
-              alt=""
-            />
-            <br />
+            <div
+              style={{
+                marginTop: "10px",
+                marginBottom: "15px",
+                height: "100px",
+                width: "150px",
+                border: "1px solid #ccc",
+                borderRadius: "4px",
+              }}
+            >
+              <img
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "contain",
+                }}
+                src={`${
+                  import.meta.env.VITE_BACKEND_URL
+                }/images/avatar/${avatar}`}
+                alt=""
+              />
+            </div>
             <div>
               <label
                 htmlFor="btnUpload"
@@ -74,11 +103,37 @@ export default function ViewUserModal(props) {
               >
                 Upload Avatar
               </label>
-              <input type="file" hidden id="btnUpload" />
+              <input
+                type="file"
+                onChange={(event) => {
+                  handleOnchangeFile(event);
+                }}
+                hidden
+                id="btnUpload"
+              />
             </div>
-
-            {/* <Button type="primary">Upload Avatar</Button> */}
-            {/* <Input value={avatar} disabled /> */}
+            {preview && (
+              <div
+                style={{
+                  marginTop: "10px",
+                  marginBottom: "15px",
+                  height: "100px",
+                  width: "150px",
+                  border: "1px solid #ccc",
+                  borderRadius: "4px",
+                }}
+              >
+                <img
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                    objectFit: "contain",
+                  }}
+                  src={preview}
+                  alt=""
+                />
+              </div>
+            )}
           </div>
           <div>
             <span>FullName</span>
