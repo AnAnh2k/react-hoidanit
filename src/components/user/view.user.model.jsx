@@ -1,4 +1,4 @@
-import { Input, Modal, Drawer } from "antd";
+import { Input, Modal, Drawer, Button } from "antd";
 import { useState, useEffect } from "react";
 export default function ViewUserModal(props) {
   const { open, setOpen, dataUpdate, setDataUpdate } = props;
@@ -29,6 +29,7 @@ export default function ViewUserModal(props) {
   return (
     <>
       <Drawer
+        width={"40vw"}
         title="View User"
         closable={{ "aria-label": "Custom Close Button" }}
         open={open}
@@ -44,7 +45,40 @@ export default function ViewUserModal(props) {
           </div>
           <div>
             <span>Avatar</span>
-            <Input value={avatar} disabled />
+            <br />
+            <img
+              height={100}
+              width={100}
+              objectFit="cover"
+              style={{ borderRadius: "50%", border: "1px solid #ccc" }}
+              src={`${
+                import.meta.env.VITE_BACKEND_URL
+              }/images/avatar/${avatar}`}
+              alt=""
+            />
+            <br />
+            <div>
+              <label
+                htmlFor="btnUpload"
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  padding: "8px 12px",
+                  background: "blue",
+                  marginTop: "15px",
+                  color: "white",
+                  borderRadius: "4px",
+                  width: "fit-content",
+                  cursor: "pointer",
+                }}
+              >
+                Upload Avatar
+              </label>
+              <input type="file" hidden id="btnUpload" />
+            </div>
+
+            {/* <Button type="primary">Upload Avatar</Button> */}
+            {/* <Input value={avatar} disabled /> */}
           </div>
           <div>
             <span>FullName</span>
