@@ -1,7 +1,11 @@
-import { Input, Modal, Drawer, Button } from "antd";
+import { Input, Modal, Drawer, Button, notification } from "antd";
 import { useState, useEffect } from "react";
+import {
+  handleUploadFile,
+  updateUserAvatarAPI,
+} from "../../services/api.service";
 export default function ViewUserModal(props) {
-  const { open, setOpen, dataUpdate, setDataUpdate } = props;
+  const { open, setOpen, dataUpdate, setDataUpdate, loadUser } = props;
   useEffect(() => {
     console.log("check dataUpdate", dataUpdate);
     if (dataUpdate) {
@@ -28,6 +32,7 @@ export default function ViewUserModal(props) {
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [api, contextHolder] = notification.useNotification();
 
   const handleOnchangeFile = (event) => {
     if (!event.target.files || event.target.files.length === 0) {
@@ -42,11 +47,50 @@ export default function ViewUserModal(props) {
       setSelectedFile(file);
       setPreview(URL.createObjectURL(file));
     }
-    console.log("Selected file:", preview);
+  };
+
+  const handleUpdateUserAvatar = async () => {
+    //step 1:upload file to server
+    const reUpload = await handleUploadFile(selectedFile, "avatar");
+    if (reUpload.data) {
+      //success
+      const newAvatar = reUpload.data.fileUploaded;
+      //step 2: update user avatar in database
+      const resUpdateAvatar = await updateUserAvatarAPI(
+        newAvatar,
+        id,
+        fullName,
+        phone
+      );
+      if (resUpdateAvatar.data) {
+        setOpen(false);
+        setSelectedFile(null);
+        setPreview(null);
+        await loadUser();
+        api.success({
+          message: "Update User Avatar Success",
+          description: "Cập nhật ảnh đại diện thành công",
+        });
+      } else {
+        //failed
+        api.error({
+          message: "Error Update User Avatar",
+          description: JSON.stringify(resUpdateAvatar.message),
+        });
+      }
+      console.log("newAvatar", newAvatar);
+    } else {
+      //failed
+      api.error({
+        message: "Upload Failed",
+        description: JSON.stringify(reUpload.message),
+      });
+    }
   };
 
   return (
     <>
+      {contextHolder}
       <Drawer
         width={"40vw"}
         title="View User"
@@ -113,26 +157,36 @@ export default function ViewUserModal(props) {
               />
             </div>
             {preview && (
-              <div
-                style={{
-                  marginTop: "10px",
-                  marginBottom: "15px",
-                  height: "100px",
-                  width: "150px",
-                  border: "1px solid #ccc",
-                  borderRadius: "4px",
-                }}
-              >
-                <img
+              <>
+                <div
                   style={{
-                    height: "100%",
-                    width: "100%",
-                    objectFit: "contain",
+                    marginTop: "10px",
+                    marginBottom: "15px",
+                    height: "100px",
+                    width: "150px",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
                   }}
-                  src={preview}
-                  alt=""
-                />
-              </div>
+                >
+                  <img
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                      objectFit: "contain",
+                    }}
+                    src={preview}
+                    alt=""
+                  />
+                </div>
+                <Button
+                  type="primary"
+                  onClick={() => {
+                    handleUpdateUserAvatar();
+                  }}
+                >
+                  Save
+                </Button>
+              </>
             )}
           </div>
           <div>

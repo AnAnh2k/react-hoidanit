@@ -1,4 +1,5 @@
 // import axios from "axios";
+import { Avatar } from "antd";
 import axios from "./axios.customize";
 
 const createUserAPI = (fullName, email, password, phone) => {
@@ -33,4 +34,37 @@ const deleteUsersAPI = (_id) => {
   return axios.delete(URL_BACKEND);
 };
 
-export { createUserAPI, updateUserAPI, fetchAllUsersAPI, deleteUsersAPI };
+const handleUploadFile = (file, folder) => {
+  const URL_BACKEND = "/api/v1/file/upload";
+
+  let config = {
+    headers: {
+      "upload-type": folder,
+      "Content-Type": "multipart/form-data",
+    },
+  };
+  const bodyFormData = new FormData();
+  bodyFormData.append("fileImg", file);
+
+  return axios.post(URL_BACKEND, bodyFormData, config);
+};
+
+const updateUserAvatarAPI = (avatar, _id, fullName, phone) => {
+  const URL_BACKEND = "/api/v1/user";
+  const data = {
+    _id: _id,
+    avatar: avatar,
+    fullName: fullName,
+    phone: phone,
+  };
+  return axios.put(URL_BACKEND, data);
+};
+
+export {
+  createUserAPI,
+  updateUserAPI,
+  fetchAllUsersAPI,
+  deleteUsersAPI,
+  handleUploadFile,
+  updateUserAvatarAPI,
+};
