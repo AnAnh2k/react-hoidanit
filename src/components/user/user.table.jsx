@@ -119,7 +119,7 @@ const UserTable = (props) => {
     //nếu thay đổi tổng số phần tử
     if (pagination && pagination.pageSize) {
       if (+pagination.pageSize !== +pageSize) {
-        setCurrent(+pagination.pageSize);
+        setPageSize(+pagination.pageSize);
       }
     }
   };

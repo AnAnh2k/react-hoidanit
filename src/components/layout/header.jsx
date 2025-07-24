@@ -4,6 +4,7 @@ import {
   UsergroupAddOutlined,
   HomeOutlined,
   BookOutlined,
+  UserAddOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
 const Header = () => {
@@ -22,6 +23,11 @@ const Header = () => {
       label: <Link to="/books">Books</Link>,
       key: "books",
       icon: <BookOutlined />,
+    },
+    {
+      label: <Link to="/register">Register</Link>,
+      key: "register",
+      icon: <UserAddOutlined />,
     },
   ];
   const [current, setCurrent] = useState("");
