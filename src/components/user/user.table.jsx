@@ -6,7 +6,15 @@ import ViewUserModal from "./view.user.model";
 import { deleteUsersAPI } from "../../services/api.service";
 import { notification, Popconfirm } from "antd";
 const UserTable = (props) => {
-  const { dataUsers, loadUser } = props;
+  const {
+    dataUsers,
+    loadUser,
+    current,
+    pageSize,
+    total,
+    setCurrent,
+    setPageSize,
+  } = props;
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
 
   const [dataUpdate, setDataUpdate] = useState(null);
@@ -20,7 +28,7 @@ const UserTable = (props) => {
       render: (_, record, index) => {
         return (
           <>
-            <span>{index + 1}</span>
+            <span>{index + 1 + (+current - 1) * pageSize}</span>
           </>
         );
       },
@@ -101,10 +109,44 @@ const UserTable = (props) => {
     }
   };
 
+  const onChange = (pagination, filters, sorter, extra) => {
+    if (pagination && pagination.current) {
+      if (+pagination.current !== +current) {
+        setCurrent(+pagination.current);
+      }
+    }
+
+    //nếu thay đổi tổng số phần tử
+    if (pagination && pagination.pageSize) {
+      if (+pagination.pageSize !== +pageSize) {
+        setCurrent(+pagination.pageSize);
+      }
+    }
+  };
+
   return (
     <>
       {contextHolder}
-      <Table columns={columns} dataSource={dataUsers} rowKey={"_id"} />
+      <Table
+        columns={columns}
+        dataSource={dataUsers}
+        rowKey={"_id"}
+        pagination={{
+          current: current,
+          pageSize: pageSize,
+          showSizeChanger: true,
+          total: total,
+          showTotal: (total, range) => {
+            if (!range || range.length < 2) return null;
+            return (
+              <div>
+                {range[0]}-{range[1]} trên {total || 0} rows{" "}
+              </div>
+            );
+          },
+        }}
+        onChange={onChange}
+      />
       <UpdateUserModal
         isModalUpdateOpen={isModalUpdateOpen}
         setIsModalUpdateOpen={setIsModalUpdateOpen}

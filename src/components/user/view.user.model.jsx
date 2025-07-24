@@ -7,7 +7,6 @@ import {
 export default function ViewUserModal(props) {
   const { open, setOpen, dataUpdate, setDataUpdate, loadUser } = props;
   useEffect(() => {
-    console.log("check dataUpdate", dataUpdate);
     if (dataUpdate) {
       setID(dataUpdate._id);
       setAvatar(dataUpdate.avatar);
