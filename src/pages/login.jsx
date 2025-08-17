@@ -5,13 +5,15 @@ import { loginUserAPI } from "../services/api.service";
 import { useNavigate } from "react-router-dom";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useState } from "react";
-
+import { useContext } from "react";
+import { AuthContext } from "../components/context/auth.context.jsx";
 const LoginPage = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [api, contextHolder] = notification.useNotification();
   const [messageApi, contextHolder2] = message.useMessage();
   const [loading, setLoading] = useState(false);
+  const { setUser } = useContext(AuthContext);
 
   const onFinish = async (values) => {
     setLoading(true);
@@ -20,6 +22,8 @@ const LoginPage = () => {
     const res = await loginUserAPI(values.email, values.password);
     if (res.data) {
       messageApi.success("Đăng nhập thành công");
+      localStorage.setItem("access_token", res.data.access_token);
+      setUser(res.data.user);
       setTimeout(() => {
         navigate("/");
       }, 1000); // Chờ 1 giây rồi mới chuyển trang

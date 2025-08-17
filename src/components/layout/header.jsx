@@ -9,6 +9,8 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../context/auth.context.jsx";
 const Header = () => {
   const items = [
     {
@@ -55,6 +57,10 @@ const Header = () => {
     // },
   ];
   const [current, setCurrent] = useState("");
+
+  const { user } = useContext(AuthContext);
+  console.log("AuthContext data: ", user);
+
   const onClick = (e) => {
     console.log("click ", e);
     setCurrent(e.key);

@@ -9,6 +9,7 @@ import LoginPage from "./pages/login.jsx";
 import RegisterPage from "./pages/register.jsx";
 import BookPage from "./pages/books.jsx";
 import UserPage from "./pages/users.jsx";
+import { AuthWrapper } from "./components/context/auth.context.jsx";
 
 import "./styles/global.css";
 
@@ -43,6 +44,8 @@ const router = createBrowserRouter([
 ]);
 createRoot(document.getElementById("root")).render(
   // <StrictMode>
-  <RouterProvider router={router} />
-  // </StrictMode>
+  <AuthWrapper>
+    <RouterProvider router={router} />
+    {/* </StrictMode> */}
+  </AuthWrapper>
 );
