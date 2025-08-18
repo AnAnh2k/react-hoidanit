@@ -19,8 +19,12 @@ export const AuthWrapper = (props) => {
     avatar: "",
     id: "",
   });
+
+  const [isAppLoading, setIsAppLoading] = useState(true);
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider
+      value={{ user, setUser, isAppLoading, setIsAppLoading }}
+    >
       {/* The rest of your app components would go here */}
       {props.children}
     </AuthContext.Provider>
