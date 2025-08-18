@@ -7,11 +7,17 @@ import {
   UserAddOutlined,
   LoginOutlined,
   SettingOutlined,
+  AliwangwangOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context.jsx";
+
 const Header = () => {
+  const [current, setCurrent] = useState("");
+
+  const { user } = useContext(AuthContext);
   const items = [
     {
       label: <Link to="/">Home</Link>,
@@ -28,23 +34,37 @@ const Header = () => {
       key: "books",
       icon: <BookOutlined />,
     },
-    {
-      key: "settings",
-      label: "Settings",
-      icon: <SettingOutlined />,
-      children: [
-        {
-          key: "register",
-          label: <Link to="/register">Register</Link>,
-          icon: <UserAddOutlined />,
-        },
-        {
-          key: "login",
-          label: <Link to="/Login">Login</Link>,
-          icon: <LoginOutlined />,
-        },
-      ],
-    },
+    ...(!user.id
+      ? [
+          {
+            key: "login",
+            label: <Link to="/login">Login</Link>,
+            icon: <LoginOutlined />,
+          },
+          {
+            key: "register",
+            label: <Link to="/register">Register</Link>,
+            icon: <UserAddOutlined />,
+          },
+        ]
+      : []),
+    ...(user.id
+      ? [
+          {
+            key: "setting",
+            label: `Wellcome ${user.fullName || "Guest"}`,
+            icon: <AliwangwangOutlined />,
+            children: [
+              {
+                key: "logout",
+                label: <Link to="/login">Logout</Link>,
+                icon: <LogoutOutlined />,
+              },
+            ],
+          },
+        ]
+      : []),
+
     // {
     //   label: <Link to="/register">Register</Link>,
     //   key: "register",
@@ -56,13 +76,8 @@ const Header = () => {
     //   icon: <LoginOutlined />,
     // },
   ];
-  const [current, setCurrent] = useState("");
-
-  const { user } = useContext(AuthContext);
-  console.log("AuthContext data: ", user);
 
   const onClick = (e) => {
-    console.log("click ", e);
     setCurrent(e.key);
   };
   return (

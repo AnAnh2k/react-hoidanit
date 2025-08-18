@@ -77,7 +77,7 @@ export default function ViewUserModal(props) {
           description: JSON.stringify(resUpdateAvatar.message),
         });
       }
-      console.log("newAvatar", newAvatar);
+      // console.log("newAvatar", newAvatar);
     } else {
       //failed
       api.error({

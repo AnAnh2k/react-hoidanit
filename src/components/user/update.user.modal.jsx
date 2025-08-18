@@ -11,7 +11,6 @@ export default function UpdateUserModal(props) {
     loadUser,
   } = props;
   useEffect(() => {
-    console.log("check dataUpdate", dataUpdate);
     if (dataUpdate) {
       setID(dataUpdate._id);
       setFullName(dataUpdate.fullName);

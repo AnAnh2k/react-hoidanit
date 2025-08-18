@@ -8,7 +8,7 @@ const RegisterPage = () => {
   const [api, contextHolder] = notification.useNotification();
 
   const onFinish = async (values) => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
     // Here you can call your API to register the user
     const res = await registerUserAPI(
       values.fullName,

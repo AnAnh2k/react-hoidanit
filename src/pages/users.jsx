@@ -17,7 +17,7 @@ const UserPage = () => {
 
   const loadUser = async () => {
     const res = await fetchAllUsersAPI(current, pageSize);
-    console.log("check res", res);
+    // console.log("check res", res);
 
     if (res.data) {
       setDataUsers(res.data.result);

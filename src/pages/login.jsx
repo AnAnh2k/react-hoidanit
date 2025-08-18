@@ -83,7 +83,13 @@ const LoginPage = () => {
                 { min: 6, message: "Password must be at least 6 characters!" },
               ]}
             >
-              <Input.Password />
+              <Input.Password
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    form.submit();
+                  }
+                }}
+              />
             </Form.Item>
 
             <div
